@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Employee Details Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Body background */
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Main form container */
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 40px;
+            margin-top: 50px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Form heading */
+        h2 {
+            text-align: center;
+            color: #4b6584;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        /* Label styling */
+        label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        /* Custom button styling */
+        .btn-custom {
+            background-color: #ff6b81;
+            color: white;
+            font-weight: bold;
+            width: 100%;
+            border-radius: 25px;
+            padding: 10px 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #ff4757;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <h2>Enter Payroll Employee Details</h2>
+        <form id="employeeForm">
+            <div class="mb-3">
+                <label for="empId" class="form-label">Employee ID</label>
+                <input type="number" class="form-control" id="empId" name="empId" placeholder="Enter Employee ID" required>
+            </div>
+            <div class="mb-3">
+                <label for="salary" class="form-label">Salary</label>
+                <input type="number" class="form-control" id="salary" name="salary" placeholder="Enter Salary" required>
+            </div>
+            <div class="mb-3">
+                <label for="accountNumber" class="form-label">Account Number</label>
+                <input type="text" class="form-control" id="accountNumber" name="accountNumber" placeholder="Enter Account Number" required>
+            </div>
+            <div class="mb-3">
+                <label for="ifsc" class="form-label">IFSC Code</label>
+                <input type="text" class="form-control" id="ifsc" name="ifsc" placeholder="Enter IFSC Code" required>
+            </div>
+            <div class="mb-3">
+                <label for="branch" class="form-label">Branch</label>
+                <input type="text" class="form-control" id="branch" name="branch" placeholder="Enter Branch" required>
+            </div>
+            <div class="mb-3">
+                <label for="pan" class="form-label">PAN</label>
+                <input type="text" class="form-control" id="pan" name="pan" placeholder="Enter PAN" required>
+            </div>
+            <button type="submit" class="btn btn-custom">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script>
+document.getElementById('employeeForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const formData = new FormData(this);
+
+    fetch('/submit-payroll', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message); // Show success message
+        this.reset(); // Reset form fields
+    })
+    .catch(err => {
+        alert('Error: ' + err.message); // Show error message
+    });
+});
+</script>
+
+</body>
+</html>
